@@ -80,13 +80,12 @@ class Bank:
             print(f"New balance after bonus: {self.balance[user_to]}")
 # Level 3: Scheduled Tasks
 
-    def schedule_payment(self, user_from, user_to, amount, datate_time):
-        target_ts = datetime.strptime(datate_time,"%Y-%m-%d %H:%M:%S").timestamp()
+    def schedule_payment(self, user_from, user_to, amount, datetime_time):
+        target_time = datetime.strptime(datetime_time,"%Y-%m-%d %H:%M:%S").timestamp()
 
-        scheduler = sched.scheduler(time.time, time.sleep)
-        
-        scheduler.enterabs(target_ts,1, self.transfer, argument=(user_from, user_to, amount),)
-        print(f"Payment scheduled from {user_from} to {user_to} of amount {amount} at {datate_time}")
+        scheduler = sched.scheduler(time.time,time.sleep)
+        scheduler.enterabs(target_time,1,self.transfer,argument=(user_from,user_to,amount))
+        print(f"Scheduled a transfer of {amount}, from {user_from} to {user_to}")
         scheduler.run()
 
        
@@ -122,3 +121,6 @@ if __name__ == "__main__":
 
     print(IandM_bank.transaction_tracker)
 
+
+
+    
